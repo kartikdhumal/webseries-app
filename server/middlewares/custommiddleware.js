@@ -1,7 +1,6 @@
-import logger from "../utils/logger.js";
 
 const constMiddleware = async (err, req, res, next) => {
-    logger.error(err.message);
+    console.error(err.message);
     if (err.message === "No authorization header provided") {
         return res.status(401).json({ message: err.message });
     } else if (err.message === "Invalid token format" || err.message === "Token is missing") {
