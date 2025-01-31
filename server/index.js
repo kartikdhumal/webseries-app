@@ -1,28 +1,26 @@
 import express from 'express';
 import cors from 'cors'
-import mysql from 'mysql2/promise';
+import mongoose from 'mongoose'
 import 'dotenv/config';
 import { authorizeUser } from './middlewares/authorization.js';
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import constMiddleware from './middlewares/custommiddleware.js';
 
+import User from './models/users.models.js';
+import WebSeries from './models/webseries.models.js';
+
 const app = express();
 app.use(express.json());
 app.use(cors());
 const PORT = 3000;
 
-const connectMySQL = async () => {
+const connectMongoDB = async () => {
     try {
-        const connection = await mysql.createConnection({
-            host: process.env.MYSQL_HOST,
-            user: process.env.MYSQL_USER,
-            password: process.env.MYSQL_PASSWORD,
-            database: process.env.MYSQL_DB,
-        });
-        return connection;
+        await mongoose.connect(process.env.MONGODB_URL);
+        console.log("MongoDB connected successfully!");
     } catch (err) {
-        console.error("MySQL connection error: ", err.message);
+        console.error("MongoDB connection error: ", err.message);
         throw err;
     }
 };
@@ -31,26 +29,34 @@ app.get('/', (req, res) => {
     res.json("Hello World from Kartik Dhumal");
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+    await connectMongoDB();
     console.log(`The server is running on http://localhost:${PORT}`);
-})
+});
 
 app.get('/getseries', authorizeUser, async (req, res) => {
-    const conn = await connectMySQL();
-    const [rows] = await conn.execute("select * from webseries");
-    res.status(200).json({ message: "Web series fetched successfully", rows });
-})
+    try {
+        const webSeries = await WebSeries.find();
+        res.status(200).json({ message: "Web series fetched successfully", webSeries });
+    } catch (err) {
+        console.error("Error fetching web series:", err);
+        res.status(500).json({ message: "Failed to fetch web series", error: err.message });
+    }
+});
 
 app.post('/postseries', authorizeUser, async (req, res) => {
-    const conn = await connectMySQL();
     const { webSeries } = req.body;
 
     try {
-        const [webSeriesResult] = await conn.query(
-            'INSERT INTO webseries (title, genre, release_year, rating) VALUES (?, ?, ?, ?)',
-            [webSeries.title, webSeries.genre, webSeries.release_year, webSeries.rating]
-        );
-        res.status(200).json({ message: "Data inserted successfully", webSeriesId: webSeriesResult.insertId });
+        const newWebSeries = new WebSeries({
+            title: webSeries.title,
+            genre: webSeries.genre,
+            release_year: webSeries.release_year,
+            rating: webSeries.rating
+        });
+        
+        const savedWebSeries = await newWebSeries.save();
+        res.status(200).json({ message: "Data inserted successfully", webSeriesId: savedWebSeries._id });
     } catch (err) {
         console.error("Error inserting data: ", err);
         res.status(500).json({ message: "Failed to insert data", error: err.message });
@@ -58,15 +64,14 @@ app.post('/postseries', authorizeUser, async (req, res) => {
 });
 
 app.get('/getseries/:id', authorizeUser, async (req, res) => {
-    const conn = await connectMySQL();
     const id = req.params.id;
 
     try {
-        const [rows] = await conn.execute('SELECT * FROM webseries WHERE id = ?', [id]);
-        if (rows.length === 0) {
+        const webSeries = await WebSeries.findById(id);
+        if (!webSeries) {
             return res.status(404).json({ message: "Web series not found" });
         }
-        res.status(200).json(rows[0]);
+        res.status(200).json(webSeries);
     } catch (err) {
         console.error("Error:", err);
         res.status(500).json({ message: "Failed to fetch web series", error: err.message });
@@ -74,21 +79,21 @@ app.get('/getseries/:id', authorizeUser, async (req, res) => {
 });
 
 app.put('/updateseries/:id', authorizeUser, async (req, res) => {
-    const conn = await connectMySQL();
     const id = req.params.id;
     const { title, genre, release_year, rating } = req.body;
 
     try {
-        const [result] = await conn.execute(
-            'UPDATE webseries SET title = ?, genre = ?, release_year = ?, rating = ? WHERE id = ?',
-            [title, genre, release_year, rating, id]
+        const updatedWebSeries = await WebSeries.findByIdAndUpdate(
+            id,
+            { title, genre, release_year, rating },
+            { new: true }
         );
 
-        if (result.affectedRows === 0) {
+        if (!updatedWebSeries) {
             return res.status(404).json({ message: "Web series not found" });
         }
 
-        res.status(200).json({ message: "Web series updated successfully" });
+        res.status(200).json({ message: "Web series updated successfully", updatedWebSeries });
     } catch (err) {
         console.error("Error:", err);
         res.status(500).json({ message: "Failed to update web series", error: err.message });
@@ -96,23 +101,14 @@ app.put('/updateseries/:id', authorizeUser, async (req, res) => {
 });
 
 app.delete('/deleteseries/:id', authorizeUser, async (req, res) => {
-    let conn;
     const id = req.params.id;
 
-    if (!id || isNaN(id)) {
-        return res.status(400).json({ message: "Invalid ID format" });
-    }
-
     try {
-        conn = await connectMySQL();
+        const deletedWebSeries = await WebSeries.findByIdAndDelete(id);
 
-        const [series] = await conn.execute('SELECT * FROM webseries WHERE id = ?', [id]);
-
-        if (!series) {
+        if (!deletedWebSeries) {
             return res.status(404).json({ message: "Web series not found" });
         }
-
-        await conn.execute('DELETE FROM webseries WHERE id = ?', [id]);
 
         res.status(200).json({ message: "Web series deleted successfully" });
     } catch (err) {
@@ -130,16 +126,20 @@ app.post('/register', async (req, res) => {
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const conn = await connectMySQL();
-        const [existingUser] = await conn.execute('SELECT * FROM users WHERE email = ?', [email]);
+        const existingUser = await User.findOne({ email });
 
-        if (existingUser.length > 0) {
+        if (existingUser) {
             return res.status(400).json({ message: "User with this email already exists" });
         }
 
-        const [result] = await conn.execute('INSERT INTO users (email, password) VALUES (?, ?)', [email, hashedPassword]);
+        const newUser = new User({
+            email,
+            password: hashedPassword
+        });
 
-        const token = jwt.sign({ id: result.insertId, email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const savedUser = await newUser.save();
+
+        const token = jwt.sign({ id: savedUser._id, email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.status(201).json({ message: "User registered successfully", token });
     } catch (err) {
@@ -155,20 +155,19 @@ app.post('/login', async (req, res) => {
     }
 
     try {
-        const conn = await connectMySQL();
-        const [user] = await conn.execute('SELECT * FROM users WHERE email = ?', [email]);
+        const user = await User.findOne({ email });
 
-        if (user.length === 0) {
+        if (!user) {
             return res.status(401).json({ message: "Invalid credentials" });
         }
 
-        const isPasswordValid = await bcrypt.compare(password, user[0].password);
+        const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if (!isPasswordValid) {
             return res.status(401).json({ message: "Invalid credentials" });
         }
 
-        const token = jwt.sign({ id: user[0].id, email: user[0].email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.status(200).json({ message: "Login successful", token });
     } catch (err) {
@@ -177,7 +176,7 @@ app.post('/login', async (req, res) => {
 });
 
 app.get('/getuserdetails', (req, res) => {
-    const token = req.headers['authorization'].split(' ')[1];
+    const token = req.headers['authorization']?.split(' ')[1];
     if (!token) {
         return res.status(400).json({ error: 'No token provided' });
     }
