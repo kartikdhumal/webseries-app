@@ -1,0 +1,76 @@
+.auth-container {
+    background: linear-gradient(135deg, #5c258d, #4389a2);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    width: auto; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 1s ease-out forwards;
+    position: relative; /* Ensure it fills the viewport */
+}
+
+
+.auth-box {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.auth-box h1 {
+    margin-bottom: 20px;
+    color: #ff758c;
+}
+
+.auth-box input {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.auth-box button {
+    width: 100%;
+    background: #ff758c;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.auth-box button:hover {
+    background: #ff5a71;
+}
+
+.auth-box p {
+    margin-top: 10px;
+    color: #555;
+}
+
+.auth-box a {
+    color: #ff758c;
+    text-decoration: none;
+}
+
+@keyframes gradientBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
