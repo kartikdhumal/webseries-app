@@ -27,6 +27,10 @@ const connectMySQL = async () => {
     }
 };
 
+app.get('/', (req, res) => {
+    res.json("Hello World from Kartik Dhumal");
+});
+
 app.listen(PORT, () => {
     console.log(`The server is running on http://localhost:${PORT}`);
 })
