@@ -3,7 +3,7 @@ import cors from 'cors'
 import mysql from 'mysql2/promise';
 import 'dotenv/config';
 import { authorizeUser } from './middlewares/authorization.js';
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import constMiddleware from './middlewares/custommiddleware.js';
 
