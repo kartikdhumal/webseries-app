@@ -42,13 +42,13 @@ const Home = () => {
     const fetchSeriesData = async () => {
         try {
             const token = getTokenFromLocalStorage();
-            const response = await axios.get('http://localhost:3000/getseries', {
+            const response = await axios.get('https://webseries-server.vercel.app/getseries', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
 
-            // const response = await fetch('http://localhost:3000/getseries', {
+            // const response = await fetch('https://webseries-server.vercel.app/getseries', {
             //     method: 'GET',
             //     headers: {
             //         'Authorization': `Bearer ${token}`,
@@ -85,7 +85,7 @@ const Home = () => {
         const token = getTokenFromLocalStorage();
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3000/postseries', {
+            await axios.post('https://webseries-server.vercel.app/postseries', {
                 webSeries
             }, {
                 headers: {
@@ -103,7 +103,7 @@ const Home = () => {
     const deleteWebSeries = async (id) => {
         try {
             const token = getTokenFromLocalStorage();
-            await axios.delete(`http://localhost:3000/deleteseries/${id}`, {
+            await axios.delete(`https://webseries-server.vercel.app/deleteseries/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

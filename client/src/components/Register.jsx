@@ -11,7 +11,7 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/register', { email, password });
+      const response = await axios.post('https://webseries-server.vercel.app/register', { email, password });
       alert(response.data.message);
       navigate('/login');
     } catch (error) {

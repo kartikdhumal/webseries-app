@@ -42,7 +42,7 @@ const EditShow = () => {
     const fetchSeriesData = async () => {
         try {
             const token = getTokenFromLocalStorage();
-            const response = await axios.get(`http://localhost:3000/getseries/${id}`, {
+            const response = await axios.get(`https://webseries-server.vercel.app/getseries/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -76,7 +76,7 @@ const EditShow = () => {
         e.preventDefault();
         try {
             const token = getTokenFromLocalStorage();
-            await axios.put(`http://localhost:3000/updateseries/${id}`, webSeries, {
+            await axios.put(`https://webseries-server.vercel.app/updateseries/${id}`, webSeries, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

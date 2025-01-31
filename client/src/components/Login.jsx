@@ -11,7 +11,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/login', { email, password });
+      const response = await axios.post('https://webseries-server.vercel.app/login', { email, password });
       const { token } = response.data;
       localStorage.setItem('token', token);
       alert(response.data.message);
