@@ -9,21 +9,14 @@ import constMiddleware from './middlewares/custommiddleware.js';
 
 import User from './models/users.models.js';
 import WebSeries from './models/webseries.models.js';
+import connectMongoDB from './db/database.js';
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 const PORT = 3000;
 
-const connectMongoDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGODB_URL);
-        console.log("MongoDB connected successfully!");
-    } catch (err) {
-        console.error("MongoDB connection error: ", err.message);
-        throw err;
-    }
-};
+await connectMongoDB();
 
 app.get('/', (req, res) => {
     res.json("Hello World from Kartik Dhumal");
@@ -54,7 +47,7 @@ app.post('/postseries', authorizeUser, async (req, res) => {
             release_year: webSeries.release_year,
             rating: webSeries.rating
         });
-        
+
         const savedWebSeries = await newWebSeries.save();
         res.status(200).json({ message: "Data inserted successfully", webSeriesId: savedWebSeries._id });
     } catch (err) {
