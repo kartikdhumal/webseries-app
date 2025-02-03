@@ -9,14 +9,14 @@ const GetUserDetailsFromToken = (token) => {
             if (!token) return;
 
             try {
-                const response = await axios.get('https://webseries-server.vercel.app/getuserdetails', {
+                const response = await axios.get('http://localhost:3000/getuserdetails', {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
                 });
 
-                const { id, email, exp } = response.data;
-                setUserDetails({ id, email, exp });
+                const { id, email, exp, isAdmin } = response.data;
+                setUserDetails({ id, email, exp, isAdmin });
             } catch (error) {
                 console.error('Error fetching user details:', error);
                 setUserDetails(null);

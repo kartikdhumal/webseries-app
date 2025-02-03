@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../styles/Home.css';
+import '../styles/Editshow.css';
 import GetUserDetailsFromToken from './IdentifyUser';
 
 const EditShow = () => {
@@ -12,32 +12,26 @@ const EditShow = () => {
         rating: ''
     });
 
+    const getTokenFromLocalStorage = () => {
+        const token = localStorage.getItem('token');
+        return token ? token : null;
+    };
+
+    const token = getTokenFromLocalStorage();
+
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const token = getTokenFromLocalStorage();
-    const { userDetails, loading, error } = GetUserDetailsFromToken(token);
+    const userDetails = GetUserDetailsFromToken(token);
 
     useEffect(() => {
-        if (loading) return;
-
-        if (error) {
-            console.log(error);
-            return;
-        }
-
         const currentTime = Date.now() / 1000;
         if (userDetails && userDetails.exp < currentTime) {
             alert("Session expired. Please log in again.");
             localStorage.removeItem('token');
             navigate('/login');
         }
-    }, [userDetails, loading, error, navigate]);
-
-    const getTokenFromLocalStorage = () => {
-        const token = localStorage.getItem('token');
-        return token ? token : null;
-    };
+    }, [userDetails]);
 
     const fetchSeriesData = async () => {
         try {
@@ -82,7 +76,7 @@ const EditShow = () => {
                 }
             });
             alert("Web series updated successfully");
-            navigate('/');
+            navigate('/home');
         } catch (error) {
             console.error('Error updating web series:', error);
         }

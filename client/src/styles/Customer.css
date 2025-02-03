@@ -1,0 +1,241 @@
+body {
+    display: block;
+}
+
+.customer-container {
+    font-family: 'Arial', sans-serif;
+    width: 100%;
+    background-color: #141414;
+    box-sizing: border-box;
+    color: white;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #1f1c2c, #ff416c, #1f1c2c);
+    position: absolute;
+    width: 100vw;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.searchbtn {
+    display: flex;
+    width: 25%;
+    align-items: center;
+    flex-direction: column;
+}
+
+.nav-links {
+    display: flex;
+    width: 100%;
+}
+
+.nav-links .searchbox {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.searchresult {
+    width: 24%;
+    position: absolute;
+    top: 75%;
+}
+
+.searchresult .showlist {
+    padding: 0 !important;
+}
+
+.nav-links .searchbox:focus {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.search-card {
+    background: #1f1c2c;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    padding: 7px 18px !important;
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+.series-info {
+    text-align: center;
+    border-radius: 15px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.8), rgba(255, 92, 92, 0.8));
+    color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.series-info::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    border-radius: 50%;
+    transition: width 0.4s ease, height 0.4s ease;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+.series-info h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.series-info p {
+    font-size: 18px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.series-info span.rating {
+    font-size: 18px;
+    font-weight: 500;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.series-info:hover span.rating {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.rating {
+    color: #f39c12;
+    font-size: 18px;
+}
+
+.nav-links li {
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.3s ease;
+}
+
+.nav-links li:hover {
+    color: #ffcc00;
+}
+
+.userdetails {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f4f4f4;
+    color: #a80000;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.userdetails p {
+    background-color: #f4f4f4;
+    color: #a80000;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.hero {
+    height: 70vh;
+    background: url('https://source.unsplash.com/1600x900/?movie,series') no-repeat center center/cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h2 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.hero-content p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.watch-btn {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #ff0000;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+.watch-btn:hover {
+    background-color: #cc0000;
+}
+
+/* Series Grid */
+.series-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 120px;
+}
+
+.series-card {
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    transition: 0.3s ease;
+}
+
+
+.rating {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffcc00;
+}

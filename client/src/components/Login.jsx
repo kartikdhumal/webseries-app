@@ -8,16 +8,42 @@ function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  const fetchUserDetails = async (token) => {
+    if (!token) return;
+
+    try {
+      const response = await axios.get('http://localhost:3000/getuserdetails', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      const { id, email, exp, isAdmin } = response.data;
+      return { id, email, exp, isAdmin }
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+      return null;
+    }
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://webseries-server.vercel.app/login', { email, password });
+      const response = await axios.post('http://localhost:3000/login', { email, password });
       const { token } = response.data;
       localStorage.setItem('token', token);
-      alert(response.data.message);
-      navigate('/');
+      const userDetails = fetchUserDetails(token);
+      userDetails.then((res) => {
+        if (res.isAdmin) {
+          alert(`ADMIN - ${response.data.message}`);
+          navigate('/home');
+        } else {
+          alert(response.data.message);
+          navigate('/customer');
+        }
+      });
     } catch (error) {
-      alert(error.response?.data?.message || 'Login failed');
+      console.error(error || 'Login failed');
     }
   };
 

@@ -1,76 +1,93 @@
+/* Full-page container */
 .auth-container {
-    background: linear-gradient(135deg, #5c258d, #4389a2);
-    border-radius: 10px;
+    background: linear-gradient(120deg, #141414, #3d0000);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px;
-    width: auto; /* Full viewport width */
-    height: 100vh; /* Full viewport height */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    animation: fadeInUp 1s ease-out forwards;
-    position: relative; /* Ensure it fills the viewport */
-}
-
-
-.auth-box {
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 15px;
+    height: 100vh;
+    width: 100vw;
     padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0px 0px 100px rgba(0, 0, 0, 0.8);
+}
+
+/* Frosted glass login box */
+.auth-box {
+    background: rgba(0, 0, 0, 0.75); /* Dark transparent */
+    border-radius: 8px;
+    padding: 40px;
+    width:30%;
     text-align: center;
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
 }
 
+/* Login heading */
 .auth-box h1 {
+    font-size: 28px;
+    font-weight: bold;
     margin-bottom: 20px;
-    color: #ff758c;
+    color: #e50914; /* Netflix red */
 }
 
+/* Input fields */
 .auth-box input {
     width: 100%;
     margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ddd;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #555;
+    background: #222;
+    color: white;
     border-radius: 5px;
     font-size: 16px;
+    outline: none;
 }
 
+/* Login button */
 .auth-box button {
-    width: 100%;
-    background: #ff758c;
+    width:100%;
+    background: #e50914;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
+    font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
+/* Hover & active effect */
 .auth-box button:hover {
-    background: #ff5a71;
+    background: #b20710;
+    transform: scale(1.05);
 }
 
+/* Fade-in text */
 .auth-box p {
-    margin-top: 10px;
-    color: #555;
+    margin-top: 15px;
+    color: #aaa;
 }
 
+/* Register link */
 .auth-box a {
-    color: #ff758c;
+    color: #e50914;
     text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
 
-@keyframes gradientBackground {
-    0% {
-        background-position: 0% 50%;
-    }
+.auth-box a:hover {
+    color: #ff0a16;
+}
 
-    50% {
-        background-position: 100% 50%;
-    }
+/* Glowing animation
+@keyframes glowEffect {
+    0% { box-shadow: 0px 0px 5px rgba(234, 217, 217, 0.516); }
+    50% { box-shadow: 0px 0px 20px rgba(185, 103, 103, 0.6); }
+    100% { box-shadow: 0px 0px 5px rgba(255, 0, 0, 0.3); }
+} */
 
-    100% {
-        background-position: 0% 50%;
-    }
+.auth-box:hover {
+    animation: glowEffect 1.5s infinite alternate;
 }

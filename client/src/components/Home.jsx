@@ -56,8 +56,8 @@ const Home = () => {
             //     }
             // });
 
-            if (response.data.rows) {
-                setWebSeriesList(response.data.rows);
+            if (response.data.webSeries) {
+                setWebSeriesList(response.data.webSeries);
             }
         } catch (error) {
             console.error('Error fetching web series:', error);
@@ -124,7 +124,7 @@ const Home = () => {
             <div>
                 {userDetails ? (
                     <div className="welcome-container">
-                        <h2 className="welcome-title">Welcome, User ID: {userDetails.id}!</h2>
+                        <h2 className="welcome-title">Welcome, {userDetails.email.split("@")[0].toUpperCase()}!</h2>
                         <p className="welcome-email">Email: {userDetails.email}</p>
                     </div>
                 ) : (
@@ -132,8 +132,7 @@ const Home = () => {
                 )}
             </div>
 
-            <p
-                className="logout-text"
+            <p className="logout-text"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                     alert("Logged out successfully")
@@ -225,8 +224,8 @@ const Home = () => {
                                     <td>{series.release_year}</td>
                                     <td>{series.rating}</td>
                                     <td>
-                                        <button className='edit-button' onClick={() => navigate(`/editshow/${series.id}`)}>Edit</button> </td>
-                                    <td><button className='delete-button' onClick={() => deleteWebSeries(series.id)}>Delete</button></td>
+                                        <button className='edit-button' onClick={() => navigate(`/editshow/${series._id}`)}>Edit</button> </td>
+                                    <td><button className='delete-button' onClick={() => deleteWebSeries(series._id)}>Delete</button></td>
                                 </tr>
                             ))}
                         </tbody>
