@@ -14,7 +14,7 @@ function SendEmail() {
 
         try {
 
-            const response = await axios.get('http://localhost:3000/getusers');
+            const response = await axios.get('https://webseries-server.vercel.app/getusers');
 
             const userExists = response.data.users.some(user => user.email === email);
 

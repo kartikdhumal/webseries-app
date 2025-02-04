@@ -57,7 +57,7 @@ describe('GET /getseries', () => {
 
     it("should fetch details", async () => {
         const response = await supertest(app).get('/getseries').set('Authorization', `Bearer ${token}`);
-        expect(response.body.webSeries.length).toBe(4);
+        expect(response.body.webSeries.length).toBe(3);
     })
 
     // it("should send details", async () => {

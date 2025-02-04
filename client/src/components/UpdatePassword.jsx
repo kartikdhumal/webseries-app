@@ -14,7 +14,7 @@ function UpdatePassword() {
 
     useEffect(() => {
         if (email) {
-            axios.get('http://localhost:3000/getusers')
+            axios.get('https://webseries-server.vercel.app/getusers')
                 .then(response => {
                     const user = response.data.users.find(user => user.email === email);
                     if (user) {
@@ -45,7 +45,7 @@ function UpdatePassword() {
 
         if (userId) {
             try {
-                const response = await axios.put(`http://localhost:3000/updatepassword/${userId}`, {
+                const response = await axios.put(`https://webseries-server.vercel.app/updatepassword/${userId}`, {
                     password: password
                 });
                 if (response.data.success) {
