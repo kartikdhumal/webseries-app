@@ -12,7 +12,7 @@ function Customer() {
     const [query, setQuery] = useState("");
     const navigate = useNavigate();
 
-    function logOutUser(){
+    function logOutUser() {
         localStorage.removeItem("token");
         alert("Log Out Successfull");
         navigate('/login');
@@ -47,7 +47,7 @@ function Customer() {
         const fetchSeries = async () => {
             try {
                 const token = getTokenFromLocalStorage();
-                const response = await axios.get('http://localhost:3000/getseries', {
+                const response = await axios.get('https://webseries-server.vercel.app/getseries', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
 
@@ -73,7 +73,7 @@ function Customer() {
                             {filteredSeries.length > 0 ? (
                                 filteredSeries.map((show) => (
                                     <div key={show._id} className="search-card">
-                                            {show.title}
+                                        {show.title}
                                     </div>
                                 ))
                             ) : (

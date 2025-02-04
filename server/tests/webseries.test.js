@@ -38,7 +38,6 @@ describe('GET /getseries', () => {
             email: "kartik@gmail.com",
             password: "kartik@123"
         })
-        console.log("Token : " + response.body.token);
         expect(response.status).toBe(200);
         expect(response.body.message).toBe("Login successful");
         token = response.body.token;
@@ -58,8 +57,21 @@ describe('GET /getseries', () => {
 
     it("should fetch details", async () => {
         const response = await supertest(app).get('/getseries').set('Authorization', `Bearer ${token}`);
-        expect(response.body.webSeries.length).toBe(3);
+        expect(response.body.webSeries.length).toBe(4);
     })
+
+    // it("should send details", async () => {
+    //     const webSeries = {
+    //         title: "Scam 1992",
+    //         genre: "Thriller",
+    //         release_year: 2020,
+    //         rating: 9.3
+    //     }
+    //     const response = await supertest(app).post('/postseries').set('Authorization', `Bearer ${token}`).send({ webSeries });
+    //     console.log("Full Response:", response.body);
+    //     expect(response.status).toBe(200);
+    //     expect(response.body.message).toBe("Data inserted successfully");
+    // })
 });
 
 afterAll(async () => {
