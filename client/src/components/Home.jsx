@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/Home.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import GetUserDetailsFromToken from './IdentifyUser';
 
 const Home = () => {
@@ -131,6 +131,7 @@ const Home = () => {
                     <p>Please log in to view your details.</p>
                 )}
             </div>
+            <Link to="/adduser" className="add-user-link">Add User</Link>
 
             <p className="logout-text"
                 style={{ cursor: "pointer" }}
@@ -142,6 +143,7 @@ const Home = () => {
             >
                 Log out
             </p>
+
             <h2 className="form-title">Add New Web Series</h2>
             <form onSubmit={handleSubmit}>
                 <div className="input-group">

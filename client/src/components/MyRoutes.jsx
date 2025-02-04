@@ -7,6 +7,7 @@ import Customer from "./Customer";
 import SendEmail from "./SendEmail";
 import OTP from "./OTP";
 import UpdatePassword from "./UpdatePassword";
+import AddUser from "./AddUser";
 
 const MyRoutes = () => {
     return (
@@ -21,6 +22,7 @@ const MyRoutes = () => {
                 <Route path="/sendemail" element={<SendEmail />} />
                 <Route path="/sendotp" element={<OTP />} />
                 <Route path="/updatepassword" element={<UpdatePassword />} />
+                <Route path="/adduser" element={<AddUser/>} />
             </Routes>
         </Router>
     );

@@ -47,6 +47,52 @@ app.get('/getusers', async (req, res) => {
     }
 });
 
+
+app.delete('/deleteuser/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        const deletedUser = await User.findByIdAndDelete(userId);
+
+        if (!deletedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).json({ message: 'Failed to delete user', error: error.message });
+    }
+});
+
+app.post('/adduser', async (req, res) => {
+    const { email, password, isAdmin } = req.body;
+
+    if (!email || !password || isAdmin === undefined) {
+        return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    try {
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email already in use' });
+        }
+
+        const newUser = new User({
+            email,
+            password,
+            isAdmin,
+        });
+
+        await newUser.save();
+        res.status(201).json({ message: 'User added successfully' });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 app.post('/postseries', authorizeUser, async (req, res) => {
     const { webSeries } = req.body;
 
