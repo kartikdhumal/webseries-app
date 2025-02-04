@@ -41,6 +41,12 @@ app.post('/postseries', authorizeUser, async (req, res) => {
     const { webSeries } = req.body;
 
     try {
+
+        const existing = await WebSeries.findOne({ title: webSeries.title });
+        if (existing) {
+            return res.status(400).json({ message: "Series with this title already exists" });
+        }
+
         const newWebSeries = new WebSeries({
             title: webSeries.title,
             genre: webSeries.genre,
