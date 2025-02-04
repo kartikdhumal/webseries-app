@@ -69,6 +69,7 @@ function Login() {
           <button type="submit">Login</button>
         </form>
         <p> Account not created ? <Link to="/register">Register here</Link></p>
+        <p><Link to="/sendemail">Forgot Password?</Link></p>
       </div>
     </div>
   );

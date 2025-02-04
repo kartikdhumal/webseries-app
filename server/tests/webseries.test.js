@@ -72,6 +72,45 @@ describe('GET /getseries', () => {
     //     expect(response.status).toBe(200);
     //     expect(response.body.message).toBe("Data inserted successfully");
     // })
+
+    // it("should update details", async () => {
+    //     const webSeries = {
+    //         title: "Panchayat 3",
+    //         genre: "drama",
+    //         release_year: 2024,
+    //         rating: 9.6
+    //     }
+    //     const response = await supertest(app).get('/getseries').set('Authorization', `Bearer ${token}`);
+    //     const webseries = response.body.webSeries.filter((series) => series.title === "Delhi crime");
+    //     const updateresponse = await supertest(app).put(`/updateseries/${webseries[0]._id}`).set('Authorization', `Bearer ${token}`).send(webSeries);
+    //     expect(updateresponse.status).toBe(200);
+    //     expect(updateresponse.body.message).toBe("Web series updated successfully");
+    //     expect(updateresponse.body.updatedWebSeries).toEqual(
+    //         expect.objectContaining(webSeries)
+    //     );
+    // })
+
+    // it("Should delete Web series", async () => {
+    //     const response = await supertest(app)
+    //         .get('/getseries')
+    //         .set('Authorization', `Bearer ${token}`);
+
+    //     expect(response.status).toBe(200);
+    //     expect(response.body.message).toBe("Web series fetched successfully");
+
+    //     const webseries = response.body.webSeries.find(series => series.title === "Panchayat 3");
+
+    //     expect(webseries).toBeDefined();
+
+    //     const deleteResponse = await supertest(app)
+    //         .delete(`/deleteseries/${webseries._id}`)
+    //         .set('Authorization', `Bearer ${token}`);
+
+    //     expect(deleteResponse.status).toBe(200);
+    //     expect(deleteResponse.body.message).toBe("Web series deleted successfully");
+    // });
+
+
 });
 
 afterAll(async () => {

@@ -22,6 +22,18 @@ function Customer() {
 
     const userDetails = GetUserDetailsFromToken(token);
 
+
+    useEffect(() => {
+        if (!userDetails) return;
+
+        const currentTime = Date.now() / 1000;
+        if (userDetails && userDetails.exp < currentTime) {
+            alert("Session expired. Please log in again.");
+            localStorage.removeItem('token');
+            navigate('/login');
+        }
+    }, [userDetails, navigate]);
+
     const handleSearch = (e) => {
         const query = e.target.value.toLowerCase();
         setQuery(query);

@@ -4,6 +4,9 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import EditShow from "../components/EditShow";
 import Customer from "./Customer";
+import SendEmail from "./SendEmail";
+import OTP from "./OTP";
+import UpdatePassword from "./UpdatePassword";
 
 const MyRoutes = () => {
     return (
@@ -15,6 +18,9 @@ const MyRoutes = () => {
                 <Route path="/customer" element={<Customer />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/editshow/:id" element={<EditShow />} />
+                <Route path="/sendemail" element={<SendEmail />} />
+                <Route path="/sendotp" element={<OTP />} />
+                <Route path="/updatepassword" element={<UpdatePassword />} />
             </Routes>
         </Router>
     );

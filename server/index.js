@@ -37,6 +37,16 @@ app.get('/getseries', authorizeUser, async (req, res) => {
     }
 });
 
+app.get('/getusers', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json({ message: "Users fetched successfully", users });
+    } catch (err) {
+        console.error("Error fetching users:", err);
+        res.status(500).json({ message: "Failed to fetch users", error: err.message });
+    }
+});
+
 app.post('/postseries', authorizeUser, async (req, res) => {
     const { webSeries } = req.body;
 
@@ -96,6 +106,33 @@ app.put('/updateseries/:id', authorizeUser, async (req, res) => {
     } catch (err) {
         console.error("Error:", err);
         res.status(500).json({ message: "Failed to update web series", error: err.message });
+    }
+});
+
+app.put('/updatepassword/:id', async (req, res) => {
+    const { password } = req.body;
+    const { id } = req.params;
+
+    if (!password || password.length < 6) {
+        return res.status(400).json({ message: 'Password must be at least 6 characters' });
+    }
+
+    try {
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        user.password = hashedPassword;
+        await user.save();
+
+        res.status(200).json({ success: true, message: 'Password updated successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'An error occurred while updating the password', error: error.message });
     }
 });
 

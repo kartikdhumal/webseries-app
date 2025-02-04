@@ -1,0 +1,89 @@
+/* Full-page container */
+.auth-container {
+    background: linear-gradient(120deg, #141414, #3d0000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    padding: 20px;
+    box-shadow: inset 0px 0px 100px rgba(0, 0, 0, 0.8);
+}
+
+/* Frosted glass email box */
+.auth-box {
+    background: rgba(0, 0, 0, 0.75); /* Dark transparent */
+    border-radius: 8px;
+    padding: 40px;
+    width: 30%;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+}
+
+/* Email page heading */
+.auth-box h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #e50914; /* Netflix red */
+}
+
+/* Input field for email */
+.auth-box input {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #555;
+    background: #222;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Send OTP button */
+.auth-box button {
+    width: 100%;
+    background: #e50914;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover & active effect for button */
+.auth-box button:hover {
+    background: #b20710;
+    transform: scale(1.05);
+}
+
+/* Message below the form */
+.auth-box p {
+    margin-top: 15px;
+    color: #aaa;
+}
+
+/* Error message or information */
+.auth-box .error {
+    color: red;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+/* Glowing animation on box hover */
+.auth-box:hover {
+    animation: glowEffect 1.5s infinite alternate;
+}
+
+/* Animation for glowing effect */
+@keyframes glowEffect {
+    0% { box-shadow: 0px 0px 5px rgba(234, 217, 217, 0.516); }
+    50% { box-shadow: 0px 0px 20px rgba(185, 103, 103, 0.6); }
+    100% { box-shadow: 0px 0px 5px rgba(255, 0, 0, 0.3); }
+}
