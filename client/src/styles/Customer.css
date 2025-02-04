@@ -7,8 +7,8 @@ body {
 
 .customer-container {
     font-family: 'Arial', sans-serif;
-    width:100vw;
-    background-color: #141414;
+    width: 100vw;
+    background-color: #0f172a;
     margin: 0;
     padding: 0;
     color: white;
@@ -18,18 +18,25 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    height: 50px;
     padding: 15px 40px;
-    background: linear-gradient(135deg, #1f1c2c, #ff416c, #1f1c2c);
+    background: #0f172a;
+    border-bottom: 1px solid darkgrey;
     position: absolute;
     width: 100vw;
     z-index: 10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 
 .logo {
     font-size: 28px;
     font-weight: bold;
+    color: antiquewhite;
     cursor: pointer;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3), 0 0 25px rgba(255, 0, 0, 0.4), 0 0 5px rgba(255, 0, 0, 0.6);
 }
+
 
 
 .searchbtn {
@@ -134,10 +141,10 @@ body {
     text-align: left;
     border-radius: 12px;
     padding: 20px;
-    background: linear-gradient(135deg, #121212, #1e1e1e);
+    background: linear-gradient(135deg, #0b135e, #1e1e1e);
     color: #fff;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.6);
-    transition: all 0.3s ease-in-out;
+    transition: all 0.6s ease-in-out;
     position: relative;
     overflow: hidden;
     max-width: 350px;
@@ -150,6 +157,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    transition: all 0.6s ease-in-out;
     width: 100%;
     height: 100%;
     border-radius: 12px;

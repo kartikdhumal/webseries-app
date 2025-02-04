@@ -31,7 +31,7 @@ afterAll(() => {
 //     }
 // });
 
-describe('GET /getseries', () => {
+describe('webseries-app', () => {
     let token;
     it("should login and fetch a token", async () => {
         const response = await supertest(app).post('/login').send({

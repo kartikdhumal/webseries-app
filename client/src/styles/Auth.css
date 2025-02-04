@@ -1,6 +1,6 @@
 /* Full-page container */
 .auth-container {
-    background: linear-gradient(120deg, #141414, #3d0000);
+    background-color: #0f172a;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,9 +10,7 @@
     box-shadow: inset 0px 0px 100px rgba(0, 0, 0, 0.8);
 }
 
-/* Frosted glass login box */
 .auth-box {
-    background: rgba(0, 0, 0, 0.75); /* Dark transparent */
     border-radius: 8px;
     padding: 40px;
     width:30%;
@@ -26,7 +24,7 @@
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #e50914; /* Netflix red */
+    color: #eadedf; /* Netflix red */
 }
 
 /* Input fields */
@@ -71,15 +69,12 @@
 
 /* Register link */
 .auth-box a {
-    color: #e50914;
+    color:#eadedf;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease;
 }
 
-.auth-box a:hover {
-    color: #ff0a16;
-}
 
 /* Glowing animation
 @keyframes glowEffect {

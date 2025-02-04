@@ -1,6 +1,6 @@
 /* Full-page container */
 .auth-container {
-    background: linear-gradient(120deg, #141414, #3d0000);
+    background-color: #0f172a;
     display: flex;
     justify-content: center;
     align-items: center;
