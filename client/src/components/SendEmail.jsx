@@ -25,15 +25,14 @@ function SendEmail() {
                 const templateParams = {
                     to_email: email,
                     subject: 'Your OTP for resetting password',
-                    message: otp,
+                    message: "Your OTP -" + otp + ". Don't share this with anyone",
                 };
-
 
                 emailjs.send("service_m70sn8f", "template_2pov6dk", templateParams, "UotkyMsCOj0Jq6E4g")
                     .then((response) => {
                         alert("Email sent to " + email);
                         console.log('Email sent successfully:', response);
-                        navigate('/sendotp', { state: { otp , email } });
+                        navigate('/sendotp', { state: { otp, email } });
                     })
                     .catch((error) => {
                         console.error('Error sending email:', error);
