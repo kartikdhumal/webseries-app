@@ -6,7 +6,7 @@ import { authorizeUser } from './middlewares/authorization.js';
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import constMiddleware from './middlewares/custommiddleware.js';
-
+import { Server } from 'socket.io';
 import User from './models/users.models.js';
 import WebSeries from './models/webseries.models.js';
 import connectMongoDB from './db/database.js';
@@ -22,9 +22,30 @@ app.get('/', (req, res) => {
     res.json("Hello World from Kartik Dhumal");
 });
 
-app.listen(PORT, async () => {
+const server = app.listen(PORT, async () => {
     await connectMongoDB();
     console.log(`The server is running on http://localhost:${PORT}`);
+});
+
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
+
+io.on('connection', (socket) => {
+    console.log('A user connected');
+
+    socket.on('chatMessage', (data) => {
+        console.log('Received chat message:', data);
+
+        io.emit('chatMessage', data);
+    });
+
+    socket.on('disconnect', () => {
+        console.log('A user disconnected');
+    });
 });
 
 app.get('/getseries', authorizeUser, async (req, res) => {

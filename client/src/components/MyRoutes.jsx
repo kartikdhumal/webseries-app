@@ -8,6 +8,7 @@ import SendEmail from "./SendEmail";
 import OTP from "./OTP";
 import UpdatePassword from "./UpdatePassword";
 import AddUser from "./AddUser";
+import MyChat from "./MyChat";
 
 const MyRoutes = () => {
     return (
@@ -22,7 +23,8 @@ const MyRoutes = () => {
                 <Route path="/sendemail" element={<SendEmail />} />
                 <Route path="/sendotp" element={<OTP />} />
                 <Route path="/updatepassword" element={<UpdatePassword />} />
-                <Route path="/adduser" element={<AddUser/>} />
+                <Route path="/adduser" element={<AddUser />} />
+                <Route path="/chat" element={<MyChat />} />
             </Routes>
         </Router>
     );

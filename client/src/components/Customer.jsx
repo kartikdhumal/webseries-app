@@ -94,6 +94,7 @@ function Customer() {
                         </div>
                     </div>
                 </div>
+                <p className="chat-link" style={{cursor:"pointer"}} onClick={() => navigate('/chat')}>Go to chat</p>
                 <p> Welcome , {userDetails?.email.split("@")[0] || "user"} </p>
                 <div className="userdetails" onClick={() => logOutUser()}>
                     Log out
