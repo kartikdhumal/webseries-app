@@ -57,7 +57,7 @@ app.use('/uploads', express.static(IMAGE_DIR));
 
 
 io.on('connection', (socket) => {
-    console.log('A user connected');
+    console.log('connected socket!');
 
     socket.on('connect', () => {
         console.log('Socket connected');
@@ -74,7 +74,6 @@ io.on('connection', (socket) => {
 
     socket.on('chatMessage', (data) => {
         console.log('Received chat message:', data);
-
         io.emit('chatMessage', data);
     });
 
@@ -96,7 +95,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log('A user disconnected');
+        console.log('Socket disconnected');
     });
 });
 
