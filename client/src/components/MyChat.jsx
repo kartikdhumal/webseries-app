@@ -8,13 +8,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import { IoMdSend } from "react-icons/io";
 import dp from '/whatsappDP.jpg'
 
+const socket = io('https://webseries-server.vercel.app');
 
 const MyChat = () => {
-    const socket = io('https://webseries-server.vercel.app', {
-        transports: ['polling', 'websocket'],
-        path: '/socket.io'
-    });
-
     socket.on('connect', () => {
         console.log('Connected to the server');
     });
@@ -41,7 +37,29 @@ const MyChat = () => {
     const [receiverName, setReceiverName] = useState("");
     const messagesEndRef = useRef(null);
 
-    console.log(socket);
+    const [fooEvents, setFooEvents] = useState([]);
+
+    useEffect(() => {
+        // no-op if the socket is already connected
+        socket.connect();
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
+
+    useEffect(() => {
+        function onFooEvent(value) {
+            setFooEvents(fooEvents.concat(value));
+        }
+
+        socket.on('foo', onFooEvent);
+
+        return () => {
+            socket.off('foo', onFooEvent);
+        };
+    }, [fooEvents]);
+
 
     const getUserId = () => {
         let userId = localStorage.getItem('userId');

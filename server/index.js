@@ -32,7 +32,7 @@ const server = app.listen(PORT, async () => {
 
 const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: "https://webseries-frontend.vercel.app",
         methods: ["GET", "POST"]
     }
 });

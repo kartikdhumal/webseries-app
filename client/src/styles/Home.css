@@ -84,12 +84,6 @@ textarea {
     outline: none;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-    border: 2px solid #e50914;
-}
-
 .submit-button {
     background-color: #e50914;
     color: white;
