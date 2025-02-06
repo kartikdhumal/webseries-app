@@ -38,11 +38,11 @@ const io = new Server(server, {
 });
 
 const __dirname = path.resolve();
-const IMAGE_DIR = path.join(__dirname, 'uploads');
-if (!fs.existsSync(IMAGE_DIR)) {
-    fs.mkdirSync(IMAGE_DIR);
-}
 
+const IMAGE_DIR = '/tmp/uploads';
+if (!fs.existsSync(IMAGE_DIR)) {
+    fs.mkdirSync(IMAGE_DIR, { recursive: true });
+}
 
 const storage = multer.diskStorage({
     destination: IMAGE_DIR,
