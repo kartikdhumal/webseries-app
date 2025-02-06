@@ -8,9 +8,29 @@ import { AiOutlineClose } from "react-icons/ai";
 import { IoMdSend } from "react-icons/io";
 import dp from '/whatsappDP.jpg'
 
-const socket = io('https://webseries-server.vercel.app');
 
 const MyChat = () => {
+    const socket = io('https://webseries-server.vercel.app', {
+        transports: ['polling', 'websocket'],
+        path: '/socket.io'
+    });
+
+    socket.on('connect', () => {
+        console.log('Connected to the server');
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Disconnected from the server');
+    });
+
+    socket.on('connect_error', (err) => {
+        console.log('Connection Error:', err);
+    });
+
+    socket.on('error', (err) => {
+        console.error('Socket.io Error:', err);
+    });
+
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);

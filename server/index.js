@@ -37,8 +37,6 @@ const io = new Server(server, {
     }
 });
 
-console.log(io);
-
 const __dirname = path.resolve();
 
 const IMAGE_DIR = '/tmp/uploads';
@@ -60,6 +58,19 @@ app.use('/uploads', express.static(IMAGE_DIR));
 
 io.on('connection', (socket) => {
     console.log('A user connected');
+
+    socket.on('connect', () => {
+        console.log('Socket connected');
+    });
+
+    socket.on('disconnect', () => {
+        console.log('A user disconnected');
+    });
+
+    socket.on('connect_error', (error) => {
+        console.error('Socket connection error:', error);
+    });
+
 
     socket.on('chatMessage', (data) => {
         console.log('Received chat message:', data);
