@@ -37,6 +37,8 @@ const io = new Server(server, {
     }
 });
 
+console.log(io);
+
 const __dirname = path.resolve();
 
 const IMAGE_DIR = '/tmp/uploads';
