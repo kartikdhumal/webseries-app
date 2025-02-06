@@ -5,7 +5,7 @@ import { FaSmile } from 'react-icons/fa';
 import EmojiPicker from 'emoji-picker-react';
 import { IoMdAttach } from "react-icons/io";
 
-const socket = io('http://localhost:3000');
+const socket = io('https://webseries-server.vercel.app');
 
 const MyChat = () => {
     const [message, setMessage] = useState('');
