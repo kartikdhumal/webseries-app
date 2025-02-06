@@ -272,6 +272,11 @@ body {
     margin-bottom: 20px;
 }
 
+.chat-link {
+    font-size: 35px;
+    color: #57c9a8;
+}
+
 .watch-btn {
     padding: 10px 20px;
     font-size: 18px;

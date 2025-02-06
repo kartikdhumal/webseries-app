@@ -10,6 +10,9 @@ import { Server } from 'socket.io';
 import User from './models/users.models.js';
 import WebSeries from './models/webseries.models.js';
 import connectMongoDB from './db/database.js';
+import path from 'path'
+import multer from 'multer';
+import fs from 'fs'
 
 const app = express();
 app.use(express.json());
@@ -34,6 +37,25 @@ const io = new Server(server, {
     }
 });
 
+const __dirname = path.resolve();
+const IMAGE_DIR = path.join(__dirname, 'uploads');
+if (!fs.existsSync(IMAGE_DIR)) {
+    fs.mkdirSync(IMAGE_DIR);
+}
+
+
+const storage = multer.diskStorage({
+    destination: IMAGE_DIR,
+    filename: (req, file, cb) => {
+        cb(null, `image_${Date.now()}${path.extname(file.originalname)}`);
+    }
+});
+
+const upload = multer({ storage });
+
+app.use('/uploads', express.static(IMAGE_DIR));
+
+
 io.on('connection', (socket) => {
     console.log('A user connected');
 
@@ -41,6 +63,23 @@ io.on('connection', (socket) => {
         console.log('Received chat message:', data);
 
         io.emit('chatMessage', data);
+    });
+
+    socket.on('sendImage', (fileBuffer) => {
+        const fileName = `image_${Date.now()}.png`;
+        const filePath = path.join(IMAGE_DIR, fileName);
+
+        fs.writeFile(filePath, fileBuffer, (err) => {
+            if (err) {
+                console.error('Error saving image:', err);
+                return;
+            }
+
+            io.emit('chatMessage', {
+                image: `http://localhost:3000/uploads/${fileName}`,
+                userId: socket.id
+            });
+        });
     });
 
     socket.on('disconnect', () => {

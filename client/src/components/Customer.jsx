@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Customer.css'
+import { FaWhatsapp } from "react-icons/fa";
 import GetUserDetailsFromToken from './IdentifyUser';
 
 const getTokenFromLocalStorage = () => localStorage.getItem('token');
@@ -94,7 +95,7 @@ function Customer() {
                         </div>
                     </div>
                 </div>
-                <p className="chat-link" style={{cursor:"pointer"}} onClick={() => navigate('/chat')}>Go to chat</p>
+                <FaWhatsapp className="chat-link" style={{ cursor: "pointer" }} onClick={() => navigate('/chat')} />
                 <p> Welcome , {userDetails?.email.split("@")[0] || "user"} </p>
                 <div className="userdetails" onClick={() => logOutUser()}>
                     Log out
