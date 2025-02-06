@@ -8,8 +8,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { IoMdSend } from "react-icons/io";
 import dp from '/whatsappDP.jpg'
 
-const socket = io('https://webseries-server.vercel.app/');
-console.log(socket);
+const socket = io('https://webseries-server.vercel.app');
 
 const MyChat = () => {
     const [message, setMessage] = useState('');
@@ -21,6 +20,8 @@ const MyChat = () => {
     const [isNameEntered, setIsNameEntered] = useState(false);
     const [receiverName, setReceiverName] = useState("");
     const messagesEndRef = useRef(null);
+
+    console.log(socket);
 
     const getUserId = () => {
         let userId = localStorage.getItem('userId');
