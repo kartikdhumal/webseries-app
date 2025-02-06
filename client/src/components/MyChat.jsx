@@ -8,7 +8,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import { IoMdSend } from "react-icons/io";
 import dp from '/whatsappDP.jpg'
 
-const socket = io('https://webseries-server.vercel.app');
+const socket = io('https://webseries-server.vercel.app', {
+    transports: ['websocket']
+});
 
 const MyChat = () => {
     socket.on('connect', () => {
