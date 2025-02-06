@@ -21,7 +21,7 @@ const MyChat = () => {
 
     socket.on('respond', function (data) {
         console.log(data);
-      });
+    });
 
     socket.on('connect_error', (err) => {
         console.log('connect_error :', err);
@@ -44,7 +44,6 @@ const MyChat = () => {
     const [fooEvents, setFooEvents] = useState([]);
 
     useEffect(() => {
-        // no-op if the socket is already connected
         socket.connect();
 
         return () => {
